@@ -5,18 +5,13 @@
 
 trigger:
 - master
-
+# Azure Resource Manager connection created during pipeline creation
 variables:
-
-  # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '6269fde1-8844-49a8-9877-6423dc35130e'
-
+  group: ndrvg1
   # Web app name
   webAppName: 'ndBmiCalculator'
-  
   # Environment name
   environmentName: 'dev'
-
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
@@ -59,7 +54,7 @@ stages:
           - task: AzureRmWebAppDeployment@4
             displayName: 'Azure App Service Deploy: '
             inputs:
-              azureSubscription: $(azureSubscription)
+              azureSubscription: $(subscriptionId)
               appType: webAppLinux
               WebAppName: $(webAppName)
               packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
